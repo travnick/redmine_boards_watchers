@@ -1,0 +1,12 @@
+<fieldset class="box"><legend><%= @project.name %> -> <%= @board.name %> -> <%= h(@topic.subject) %></legend>
+  <div id="watchers">
+  <%= render :partial => 'watchers/watchers', :locals => {:watched => @topic} %>
+  </div>
+</fieldset>
+
+<% form_tag({:action => 'manage_topic'}, :multipart => true   ) do %>
+  <%= hidden_field_tag 'board_id', params[:board_id] %>
+  <%= hidden_field_tag 'project_id', params[:project_id] %>
+  <%= submit_tag l(:button_back) %>
+<% end %>
+

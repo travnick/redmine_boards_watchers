@@ -1,0 +1,13 @@
+<fieldset class="box"><legend><%= @project.name %> -> <%= @board.name %></legend>
+  <div id="watchers">
+  <%= render :partial => 'watchers/watchers', :locals => {:watched => @board} %>
+  </div>
+</fieldset>
+
+<% form_tag({:action => 'manage'}, :multipart => true   ) do %>
+  <% if params[:settings_url] %>
+		<%= hidden_field_tag 'settings_url', params[:settings_url] %>
+	<% end %>
+  <%= submit_tag l(:button_back) %>
+<% end %>
+

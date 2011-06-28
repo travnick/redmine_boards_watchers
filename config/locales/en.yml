@@ -1,0 +1,4 @@
+en:
+# boards watchers permission
+  permission_delete_board_watchers: "Manage board watchers"
+  permission_delete_message_watchers: "Manage topic watchers"

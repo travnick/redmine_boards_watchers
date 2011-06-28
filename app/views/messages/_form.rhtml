@@ -1,0 +1,40 @@
+<%= error_messages_for 'message' %>
+<% replying ||= false %>
+
+<div class="box">
+<!--[form:message]-->
+<p><label><%= l(:field_subject) %></label><br />
+<%= f.text_field :subject, :size => 120 %>
+
+<% if !replying && User.current.allowed_to?(:edit_messages, @project) %>
+    <label><%= f.check_box :sticky %><%= l(:label_board_sticky) %></label>
+    <label><%= f.check_box :locked %><%= l(:label_board_locked) %></label>
+<% end %>
+</p>
+
+<% if !replying && !@message.new_record? && User.current.allowed_to?(:edit_messages, @project) %>
+	<p><label><%= l(:label_board) %></label><br />
+  <%= f.select :board_id, @project.boards.collect {|b| [b.name, b.id]} %></p>
+<% end %>
+
+<p><%= f.text_area :content, :cols => 80, :rows => 15, :class => 'wiki-edit', :id => 'message_content' %></p>
+<%= wikitoolbar_for 'message_content' %>
+<!--[eoform:message]-->
+
+<p><%= l(:label_attachment_plural) %><br />
+<%= render :partial => 'attachments/form' %></p>
+</div>
+
+<%# Lines added by boards watchers plugin - start %>
+<% if @message.new_record? && authorize_for("boards_watchers", "manage_topic") -%>
+<div class="tabular">
+<div class="box">
+<p><label><%= l(:label_issue_watchers) %></label>
+<% @project.users.sort.each do |user| -%>
+<label class="floating"><%= check_box_tag 'message[watcher_user_ids][]', user.id, @message.watched_by?(user) %> <%=h user %></label>
+<% end -%>
+</p>
+</div>
+</div>
+<% end %>
+<%# Lines added by boards watchers plugin - end %>

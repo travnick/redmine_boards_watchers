@@ -1,0 +1,21 @@
+h2. Redmine boards watchers plugin v0.0.5
+
+Plugin allows to add/remove watchers to the project' forums(boards) and their individual topics. Also it allows to assign watchers while creating a message.
+
+Plugin adds following extra links/forms
+
+* Extra button *Watchers* in _Settings->Forums_ tab for each board right before +Edit+ and +Delete+
+* Extra column *Watchers* in list of forums
+* Extra column *Watchers* in list of topics for each forum
+* List of checkboxes with list of project' users for new message form
+
+Number of watchers is displayed in parenthesis after the watchers' icon.
+
+To enable this feature you should have following permissions enabled for role:
+
+* *Manage board* watchers (+Boards+ section of permissions dialog) - enable if you want to allow boards watchers management
+* *Manage topic* watchers (+Boards+ section of permissions dialog) - enable if you want to allow individual topics watchers management
+* *Add watchers* (+Issue tracking+ section of permissions dialog) - should be enabled for both (board/topic) modes to work
+* *Delete watchers* (+Issue tracking+ section of permissions dialog) - should be enabled for both (board/topic) modes to work
+
+Please note that plugin uses standart Redmine code for managing watchers and thus would not work correctly unless Issue module is *enabled* for the project (you won't be able to add watchers unless you have +Issue+ module enabled for the project).
