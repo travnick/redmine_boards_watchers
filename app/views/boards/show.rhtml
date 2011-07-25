@@ -43,7 +43,7 @@
        <th><%= l(:label_issue_watchers) %></th>
 		<% end %>
 <%# Lines added by boards watchers plugin - end %>
-  </tr></thead>
+  </tr></thead>  
   <tbody>
   <% @topics.each do |topic| %>
     <tr class="message <%= cycle 'odd', 'even' %> <%= topic.sticky? ? 'sticky' : '' %> <%= topic.locked? ? 'locked' : '' %>">
@@ -58,11 +58,11 @@
         <% end %>
       </td>
 <%# Lines added by boards watchers plugin - start %>
-	     <% if authorize_for("boards_watchers", "manage_topic") %>
+        <% if authorize_for("boards_watchers", "manage_topic") %>
 	       <td align="center">
 	         <%= link_to "(#{topic.watcher_users.size})", {:controller => 'boards_watchers', :action => 'manage_topic', :project_id => @project, :board_id => @board, :topic_id => topic }, :class => (topic.watcher_users.size>0?'icon icon-fav':'icon icon-fav-off') %>
 	       </td>
-			<% end %>
+        <% end %>
 <%# Lines added by boards watchers plugin - end %>
     </tr>
   <% end %>
@@ -81,4 +81,5 @@
 
 <% content_for :header_tags do %>
     <%= auto_discovery_link_tag(:atom, {:format => 'atom', :key => User.current.rss_key}, :title => "#{@project}: #{@board}") %>
+    <%= stylesheet_link_tag 'scm' %>
 <% end %>

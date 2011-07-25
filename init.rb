@@ -6,7 +6,7 @@ unless Redmine::Plugin.registered_plugins.keys.include?(:redmine_boards_watchers
 	  author 'Vitaly Klimov'
 	  author_url 'mailto:vvk@snowball.ru'
 	  description 'Plugin for managing boards/topics watchers'
-	  version '0.0.5'
+	  version '0.0.6'
 
 		project_module :boards do
 			permission :delete_board_watchers, {:boards_watchers => [:manage] }, :require => :member

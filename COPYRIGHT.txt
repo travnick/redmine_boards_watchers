@@ -1,6 +1,6 @@
 Boards watchers is a Redmine plugin that allows to manage boards watchers
 
-Copyright (C) 2010 Vitaly Klimov
+Copyright (C) 2010,2011 Vitaly Klimov
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License

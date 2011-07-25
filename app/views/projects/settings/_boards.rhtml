@@ -20,8 +20,8 @@
     <td class="buttons">
 <%# Lines added by boards watchers plugin - start %>
       <% if authorize_for("boards_watchers", "manage") %>
-        <%= link_to l(:label_issue_watchers), {:controller => 'boards_watchers', :action => 'manage', :project_id => @project, :board_id => board, :settings_url => '1'}, :class => 'icon icon-fav' %>
-			<% end %>
+        <%= link_to "(#{board.watcher_users.size})", {:controller => 'boards_watchers', :action => 'manage', :project_id => @project, :board_id => board, :settings_url => '1'}, :class => 'icon icon-fav' %>
+      <% end %>
 <%# Lines added by boards watchers plugin - end %>
     	<%= link_to_if_authorized l(:button_edit), {:controller => 'boards', :action => 'edit', :project_id => @project, :id => board}, :class => 'icon icon-edit' %>
     	<%= link_to_if_authorized l(:button_delete), {:controller => 'boards', :action => 'destroy', :project_id => @project, :id => board}, :confirm => l(:text_are_you_sure), :method => :post, :class => 'icon icon-del' %>

@@ -27,14 +27,27 @@
 
 <%# Lines added by boards watchers plugin - start %>
 <% if @message.new_record? && authorize_for("boards_watchers", "manage_topic") -%>
-<div class="tabular">
-<div class="box">
-<p><label><%= l(:label_issue_watchers) %></label>
-<% @project.users.sort.each do |user| -%>
-<label class="floating"><%= check_box_tag 'message[watcher_user_ids][]', user.id, @message.watched_by?(user) %> <%=h user %></label>
-<% end -%>
-</p>
-</div>
-</div>
+	<div class="tabular">
+	<div class="box">
+	<p><label><%= l(:label_issue_watchers) %></label>
+	<% @project.users.sort.each do |user| -%>
+	<label class="floating"><%= check_box_tag 'message[watcher_user_ids][]', user.id, @message.watched_by?(user) %> <%=h user %></label>
+	<% end -%>
+	</p>
+	</div>
+	</div>
+
+	<% groups = @project.member_principals.find(:all, :include => [:roles, :principal]).sort.select { |m| true if m.principal.class.name == 'Group' } %>
+	<% if groups && groups.size > 0 %>
+		<div class="tabular">
+		<div class="box">
+		<p><label><%= "#{l(:label_issue_watchers)} (#{l(:label_group_plural)})" %></label>
+		<% groups.each do |group| -%>
+		<label class="floating"><%= check_box_tag 'message[watcher_group_ids][]', group.principal.id, false %> <%=h group.principal %></label>
+		<% end -%>
+		</p>
+		</div>
+		</div>
+	<% end %>
 <% end %>
 <%# Lines added by boards watchers plugin - end %>
