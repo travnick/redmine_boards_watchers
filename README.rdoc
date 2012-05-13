@@ -1,3 +1,14 @@
+OUT OF DATE
+-----------
+
+*THIS IS A CLONE FROM AN OLDER VERSION OF REDMINE_BOARDS_WATCHERS AND IS NO LONGER MAINTAINED.* 
+
+
+SEE http://www.redmine.org/plugins/redmine_boards_watchers FOR THE LATEST VERSION
+
+
+
+
 h2. Redmine boards watchers plugin
 
 Plugin allows to add/remove watchers to the project' forums(boards) and their individual topics. Also it allows to assign watchers while creating a message. Also plugin allows to assign groups as watchers (experimental)
