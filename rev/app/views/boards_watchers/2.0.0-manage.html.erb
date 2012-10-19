@@ -1,0 +1,12 @@
+<% if authorize_for("boards_watchers", "manage") %>
+  <%= breadcrumb(link_to(h(@project.name),{:controller => 'projects', :action => 'show', :id => @project.identifier}),
+                 link_to(h(@board.name),{:controller => 'boards', :action => 'show', :project_id => @project.identifier, :id => @board.id}) ) %>
+  <%= form_tag({:action => 'manage'}, :multipart => true   ) do %>
+    <% if params[:settings_url] %>
+      <%= hidden_field_tag 'settings_url', params[:settings_url] %>
+    <% end %>
+    <%= hidden_field_tag 'board_id', @board.id %>
+    <%= render :partial => 'boards_watchers/watchers_list', :locals => { :watched_obj => @board, :watched_param_name => 'watcher_user_ids[]'} %>
+    <%= submit_tag l(:button_apply) %>
+  <% end %>
+<% end %>

@@ -1,0 +1,9 @@
+<% if authorize_for("boards_watchers", "manage_wiki") %>
+  <%= breadcrumb(link_to(l(:label_index_by_title), {:controller => 'wiki', :action => 'index', :project_id => @page.project}),
+              link_to(h(@page.pretty_title), {:controller => 'wiki', :action => 'show', :project_id => @page.project, :id => @page.title})) %>
+  <%= form_tag({:action => 'manage_wiki'}, :multipart => true   ) do %>
+    <%= hidden_field_tag 'id', @page.title %>
+    <%= render :partial => 'boards_watchers/watchers_list', :locals => { :watched_obj => @page, :watched_param_name => 'watcher_user_ids[]'} %>
+    <%= submit_tag l(:button_apply) %>
+  <% end %>
+<% end %>

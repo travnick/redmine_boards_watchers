@@ -1,4 +1,19 @@
 en:
+  label_bw_toggle_group: "Toggle group"
+  label_bw_toggle_all: "[All users]"
+  label_bw_check_selected: "Check selected"
+  label_bw_uncheck_selected: "Uncheck selected"
+  label_bw_update_message_watchers: "Update watchers"
+  label_bw_msg_watchers_updated: "Watchers list successfully updated"
+  label_bw_msg_watchers_updated_error: "Error updating watchers list"
+
+# sticky priority variables
+  label_bw_sticky_0: "Not sticky"
+  label_bw_sticky_1: "Sticky Low"
+  label_bw_sticky_2: "Sticky Medium"
+  label_bw_sticky_3: "Sticky High"
+
 # boards watchers permission
   permission_delete_board_watchers: "Manage board watchers"
   permission_delete_message_watchers: "Manage topic watchers"
+  permission_delete_wiki_watchers: "Manage wiki watchers"

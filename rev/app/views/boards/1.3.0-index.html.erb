@@ -6,11 +6,11 @@
     <th><%= l(:label_topic_plural) %></th>
     <th><%= l(:label_message_plural) %></th>
     <th><%= l(:label_message_last) %></th>
-<%# Lines added by boards watchers plugin - start %>
-		<% if authorize_for("boards_watchers", "manage") %>
-			<th><%= l(:label_issue_watchers) %></th>
-		<% end %>
-<%# Lines added by boards watchers plugin - end %>
+<%# VVK Lines added by boards watchers plugin - start %>
+    <% if authorize_for("boards_watchers", "manage") %>
+      <th><%= l(:label_issue_watchers) %></th>
+    <% end %>
+<%# VVK Lines added by boards watchers plugin - end %>
   </tr></thead>
   <tbody>
 <% for board in @boards %>
@@ -25,24 +25,24 @@
     <small>
       <% if board.last_message %>
       <%= authoring board.last_message.created_on, board.last_message.author %><br />
-      <%= link_to_message board.last_message %>  
+      <%= link_to_message board.last_message %>
       <% end %>
     </small>
     </td>
-<%# Lines added by boards watchers plugin - start %>
-		<% if authorize_for("boards_watchers", "manage") %>
-			<td align="center">
-			  <%= link_to "(#{board.watcher_users.size})", {:controller => 'boards_watchers', :action => 'manage', :project_id => @project, :board_id => board }, :class => (board.watcher_users.size>0?'icon icon-fav':'icon icon-fav-off') %>
-			</td>
-		<% end %>
-<%# Lines added by boards watchers plugin - end %>
+<%# VVK Lines added by boards watchers plugin - start %>
+    <% if authorize_for("boards_watchers", "manage") %>
+     <td align="center">
+       <%= link_to "(#{board.watcher_users.size})", {:controller => 'boards_watchers', :action => 'manage', :project_id => @project, :board_id => board }, :class => (board.watcher_users.size>0?'icon icon-fav':'icon icon-fav-off') %>
+     </td>
+    <% end %>
+<%# VVK Lines added by boards watchers plugin - end %>
   </tr>
 <% end %>
   </tbody>
 </table>
 
 <% other_formats_links do |f| %>
-	<%= f.link_to 'Atom', :url => {:controller => 'activities', :action => 'index', :id => @project, :show_messages => 1, :key => User.current.rss_key} %>
+  <%= f.link_to 'Atom', :url => {:controller => 'activities', :action => 'index', :id => @project, :show_messages => 1, :key => User.current.rss_key} %>
 <% end %>
 
 <% content_for :header_tags do %>

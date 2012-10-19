@@ -1,8 +1,8 @@
 require 'watchers_helper'
 
 module BoardsWatchersHelper
-	include WatchersHelper
-	
-	unloadable
+  include WatchersHelper
+
+  unloadable
 end
 

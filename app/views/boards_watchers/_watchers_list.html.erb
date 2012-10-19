@@ -1,0 +1,57 @@
+<%# local variables taken in account: %>
+<%# - watched_param_name - string in format 'something'[] that will receive selected ids %>
+<%# - watched_obj - object that is watched, could be omitted %>
+<%# - watched_dom_id - html id of the section with all watchers, could be omitted %>
+<%# - watched_users_preset - array of ids that should be on on startup, could be omitted %>
+<%# - watched_project - project from which retrieve list of watchers, could be omitted %>
+
+<% content_for :header_tags do %>
+  <%= javascript_include_tag('boards_watchers.js', :plugin => 'redmine_boards_watchers') %>
+<% end %>
+
+<% project = defined?(watched_project).nil? ? @project : watched_project%>
+<% dom_id = defined?(watched_dom_id).nil? ? "bw" : watched_dom_id.to_s %>
+
+<div class="tabular">
+  <div class="box" id="<%= "#{dom_id}-users" %>">
+    <p>
+      <label><%= l(:label_issue_watchers) %></label>
+      <% project.users.sort.each do |user| -%>
+        <label class="bw-floating" full_text="<%= h(user) %>">
+          <% watched_already = (defined?(watched_obj).nil? ? false : watched_obj.watched_by?(user)) %>
+          <% unless watched_already %>
+            <% if defined?(watched_users_preset).nil? == false && watched_users_preset.include?(user.id) %>
+              <% watched_already = true %>
+            <% end %>
+          <% end %>
+          <%= check_box_tag watched_param_name, user.id, watched_already %> <%=h user %>
+        </label>
+      <% end -%>
+    </p>
+  </div>
+  <p>
+    <%= label_tag "#{dom_id}-search", l(:label_user_search) %>
+    <%= text_field_tag "#{dom_id}-search", nil, :size => 40, :onkeyup => "highlightWatchers('#{dom_id}')" %>
+    <span class='bw-check-selected'>
+      <%= link_to_function(h(l(:label_bw_check_selected)),"toggleSelectedWatchers('1','#{dom_id}')") %>
+    </span>
+    <span class='bw-uncheck-selected'>
+      <%= link_to_function(h(l(:label_bw_uncheck_selected)),"toggleSelectedWatchers('0','#{dom_id}')", :class => 'bw-uncheck-selected') %>
+    </span>
+  </p>
+</div>
+
+<% groups = project.member_principals.find(:all, :include => [:roles, :principal]).sort.select { |m| true if m.principal.class.name == 'Group' } %>
+<div class="tabular">
+  <div class="box" id="<%= "#{dom_id}-groups" %>">
+    <p class="bw-toggle-link">
+      <label><%= l(:label_bw_toggle_group) %></label>
+      <%= link_to_function(h(l(:label_bw_toggle_all)),"toggleWatchersCheckBoxes('#{[-1].to_json}','-1','#{dom_id}')") %>
+      <% if groups && groups.size > 0 %>
+        <% groups.each do |group| -%>
+          <%= link_to_function(h(group.principal),"toggleWatchersCheckBoxes('#{group.principal.users.collect(&:id).to_json}','-1','#{dom_id}')") %>
+        <% end -%>
+      <% end %>
+    </p>
+  </div>
+</div>

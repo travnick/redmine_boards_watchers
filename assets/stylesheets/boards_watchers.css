@@ -1,0 +1,58 @@
+
+tr.message.sticky-1 td.subject { background: url(../images/bullet_go.png) no-repeat 0 -1px; font-weight: bold;}
+tr.message.sticky-2 td.subject { background: url(../images/error.png) no-repeat 0 -1px; font-weight: bold; font-style: italic;}
+tr.message.sticky-3 td.subject { background: url(../images/exclamation.png) no-repeat 0 -1px; font-weight: bold; }
+
+tr.message.sticky-3 td.subject a { color: red; }
+
+#content > h2 .message-sticky-1 { background: url(../images/bullet_go.png) no-repeat 0 -1px; padding-left: 20px;}
+#content > h2 .message-sticky-2 { background: url(../images/error.png) no-repeat 0 -1px; padding-left: 20px; font-style: italic;}
+#content > h2 .message-sticky-3 { background: url(../images/exclamation.png) no-repeat 0 -1px; padding-left: 20px; color: red;}
+
+p.bw-toggle-link a { background: url(../images/group_link.png) no-repeat 0 -1px; padding-left: 20px; font-weight: bold; padding-right: 15px; }
+
+span.bw-check-selected a { background: url(../images/accept.png) no-repeat 0 -1px; padding-left: 20px; padding-right: 15px; }
+span.bw-uncheck-selected a { background: url(../images/cancel.png) no-repeat 0 -1px; padding-left: 20px; padding-right: 15px; }
+
+p.bw-project-toggles, p.bw-project-toggles a {padding-left: 0px; padding-right: 0px; padding-top: 5px; }
+
+label.bw-floating-select {
+    margin-left: 0;
+    text-align: left;
+    width: 270px;
+    font-weight: normal;
+    font-style: italic;
+    color: red;
+}
+label.bw-floating {
+    margin-left: 0;
+    text-align: left;
+    width: 270px;
+    font-weight: normal;
+}
+
+#bw-remote-toggle-link  {
+    background: url(../images/bullet_go.png) no-repeat 0 1px;
+    padding-left: 20px;
+    font-weight: bold;
+    padding-right: 15px;
+}
+
+#bw-remote-status-error, #bw-remote-status-success {
+    padding: 4px 30px 4px 30px;
+    margin-bottom: 12px;
+    font-size: 1.1em;
+    border: 2px solid;
+}
+
+#bw-remote-status-error {
+    background-color: #ffe3e3;
+    border-color: #dd0000;
+    color: #880000;
+}
+
+#bw-remote-status-success {
+    background-color: #dfffdf;
+    border-color: #9fcf9f;
+    color: #005f00;
+}

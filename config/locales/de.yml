@@ -1,0 +1,15 @@
+de:
+  label_bw_toggle_group: "Gruppe wechseln"
+  label_bw_toggle_all: "[alle Benutzer]"
+  label_bw_check_selected: "Selektierte auswählen"
+  label_bw_uncheck_selected: "Selektierte abwählen"
+
+# sticky priority variables
+  label_bw_sticky_0: "Nicht fixiert"
+  label_bw_sticky_1: "Gering fixiert"
+  label_bw_sticky_2: "durchschnittlich fixiert"
+  label_bw_sticky_3: "Stark fixiert"
+
+# boards watchers permission
+  permission_delete_board_watchers: "Forum Beobachter verwalten"
+  permission_delete_message_watchers: "Themen Beobachter verwalten"

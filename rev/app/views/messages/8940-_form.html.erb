@@ -1,0 +1,43 @@
+<%= error_messages_for 'message' %>
+<% replying ||= false %>
+
+<div class="box">
+<!--[form:message]-->
+<p><label for="message_subject"><%= l(:field_subject) %></label><br />
+<%= f.text_field :subject, :size => 120, :id => "message_subject" %>
+
+<% if !replying && User.current.allowed_to?(:edit_messages, @project) %>
+<%# VVK Lines added by boards watchers plugin - start %>
+    <% sticky_opt=[] %>
+    <% 4.times { |i| sticky_opt << [l("label_bw_sticky_#{i}"), i] }  %>
+    &nbsp;&nbsp;
+    <%= f.select(:sticky_priority,sticky_opt) %>
+<%# VVK Lines added by boards watchers plugin - end %>
+    <label><%= f.check_box :locked %><%= l(:label_board_locked) %></label>
+<% end %>
+</p>
+
+<% if !replying && !@message.new_record? && User.current.allowed_to?(:edit_messages, @project) %>
+  <p><label><%= l(:label_board) %></label><br />
+  <%= f.select :board_id, @project.boards.collect {|b| [b.name, b.id]} %></p>
+<% end %>
+
+<p>
+<%= label_tag "message_content", l(:description_message_content), :class => "hidden-for-sighted" %>
+<%= f.text_area :content, :cols => 80, :rows => 15, :class => 'wiki-edit', :id => 'message_content' %></p>
+<%= wikitoolbar_for 'message_content' %>
+<!--[eoform:message]-->
+
+<p><%= l(:label_attachment_plural) %><br />
+<%= render :partial => 'attachments/form', :locals => {:container => @message} %></p>
+</div>
+
+<%# VVK Lines added by boards watchers plugin - start %>
+<% if authorize_for("boards_watchers", "manage_topic") %>
+  <% if @message.new_record? -%>
+    <%= render :partial => 'boards_watchers/watchers_list', :locals => { :watched_obj => @message, :watched_param_name => 'message[watcher_user_ids][]'} %>
+  <% else %>
+    <%= render :partial => 'boards_watchers/watchers_list_remote' %>
+  <% end %>
+<% end %>
+<%# VVK Lines added by boards watchers plugin - end %>

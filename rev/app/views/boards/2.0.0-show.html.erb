@@ -1,4 +1,4 @@
-<%= breadcrumb link_to(l(:label_board_plural), {:controller => 'boards', :action => 'index', :project_id => @project}) %>
+<%= breadcrumb link_to(l(:label_board_plural), project_boards_path(@project)) %>
 
 <div class="contextual">
 <%= link_to_if_authorized l(:label_message_new),
@@ -11,10 +11,10 @@
 <div id="add-message" style="display:none;">
 <% if authorize_for('messages', 'new') %>
 <h2><%= link_to h(@board.name), :controller => 'boards', :action => 'show', :project_id => @project, :id => @board %> &#187; <%= l(:label_message_new) %></h2>
-<% form_for :message, @message, :url => {:controller => 'messages', :action => 'new', :board_id => @board}, :html => {:multipart => true, :id => 'message-form'} do |f| %>
+<%= form_for @message, :url => {:controller => 'messages', :action => 'new', :board_id => @board}, :html => {:multipart => true, :id => 'message-form'} do |f| %>
   <%= render :partial => 'messages/form', :locals => {:f => f} %>
   <p><%= submit_tag l(:button_create) %>
-  <%= link_to_remote l(:label_preview), 
+  <%= link_to_remote l(:label_preview),
                      { :url => { :controller => 'messages', :action => 'preview', :board_id => @board },
                        :method => 'post',
                        :update => 'preview',
@@ -38,17 +38,19 @@
     <%= sort_header_tag('created_on', :caption => l(:field_created_on)) %>
     <%= sort_header_tag('replies', :caption => l(:label_reply_plural)) %>
     <%= sort_header_tag('updated_on', :caption => l(:label_message_last)) %>
-<%# Lines added by boards watchers plugin - start %>
-     <% if authorize_for("boards_watchers", "manage_topic") %>
-       <th><%= l(:label_issue_watchers) %></th>
-		<% end %>
-<%# Lines added by boards watchers plugin - end %>
-  </tr></thead>  
+<%# VVK Lines added by boards watchers plugin - start %>
+    <% if authorize_for("boards_watchers", "manage_topic") %>
+      <th><%= l(:label_issue_watchers) %></th>
+    <% end %>
+<%# VVK Lines added by boards watchers plugin - end %>
+  </tr></thead>
   <tbody>
   <% @topics.each do |topic| %>
-    <tr class="message <%= cycle 'odd', 'even' %> <%= topic.sticky? ? 'sticky' : '' %> <%= topic.locked? ? 'locked' : '' %>">
+<%# VVK Lines added by boards watchers plugin - start %>
+    <tr class="message <%= cycle 'odd', 'even' %> <%= topic.sticky? ? "sticky-#{topic.sticky_priority}" : '' %> <%= topic.locked? ? 'locked' : '' %>">
+<%# VVK Lines added by boards watchers plugin - end %>
       <td class="subject"><%= link_to h(topic.subject), { :controller => 'messages', :action => 'show', :board_id => @board, :id => topic } %></td>
-      <td class="author" align="center"><%= topic.author %></td>
+      <td class="author" align="center"><%= link_to_user(topic.author) %></td>
       <td class="created_on" align="center"><%= format_time(topic.created_on) %></td>
       <td class="replies" align="center"><%= topic.replies_count %></td>
       <td class="last_message">
@@ -57,13 +59,13 @@
         <%= link_to_message topic.last_reply %>
         <% end %>
       </td>
-<%# Lines added by boards watchers plugin - start %>
-        <% if authorize_for("boards_watchers", "manage_topic") %>
-	       <td align="center">
-	         <%= link_to "(#{topic.watcher_users.size})", {:controller => 'boards_watchers', :action => 'manage_topic', :project_id => @project, :board_id => @board, :topic_id => topic }, :class => (topic.watcher_users.size>0?'icon icon-fav':'icon icon-fav-off') %>
-	       </td>
-        <% end %>
-<%# Lines added by boards watchers plugin - end %>
+<%# VVK Lines added by boards watchers plugin - start %>
+      <% if authorize_for("boards_watchers", "manage_topic") %>
+        <td align="center">
+          <%= link_to "(#{topic.watcher_users.size})", {:controller => 'boards_watchers', :action => 'manage_topic', :project_id => @project, :board_id => @board, :topic_id => topic }, :class => (topic.watcher_users.size>0?'icon icon-fav':'icon icon-fav-off') %>
+        </td>
+      <% end %>
+<%# VVK Lines added by boards watchers plugin - end %>
     </tr>
   <% end %>
   </tbody>
@@ -74,10 +76,10 @@
 <% end %>
 
 <% other_formats_links do |f| %>
-	<%= f.link_to 'Atom', :url => {:key => User.current.rss_key} %>
+  <%= f.link_to 'Atom', :url => {:key => User.current.rss_key} %>
 <% end %>
 
-<% html_title h(@board.name) %>
+<% html_title @board.name %>
 
 <% content_for :header_tags do %>
     <%= auto_discovery_link_tag(:atom, {:format => 'atom', :key => User.current.rss_key}, :title => "#{@project}: #{@board}") %>

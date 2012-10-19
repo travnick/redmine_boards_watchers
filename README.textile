@@ -1,0 +1,145 @@
+h2. Redmine boards/wiki/issues watchers management and sticky groups plugin
+
+h3. Priority for sticky messages
+
+Plugin adds ability to select priority level for sticky messages. Messages sorted by level first and modification time second
+Please do plugins migrations before use!
+
+h3. Boards and topics watchers management
+
+Plugin allows to add/remove watchers to the project' forums and their individual topics. Also it allows to assign watchers while creating a message.
+
+Watchers management screen allows to add group members to watchers as well as lookup and quickly select watchers by typing part of their names
+
+Plugin adds following extra links/forms
+
+* Extra button *Watchers* in _Settings->Forums_ tab for each board right before +Edit+ and +Delete+
+* Extra column *Watchers* in list of forums
+* Extra column *Watchers* in list of topics for each forum
+* Watchers management screen for new message form
+
+Number of watchers is displayed in parenthesis after the watchers' icon.
+
+To enable this feature you should have following permissions enabled for role:
+
+* *Manage board watchers* (+Boards+ section of permissions dialog) - enable if you want to allow boards watchers management
+* *Manage topic watchers* (+Boards+ section of permissions dialog) - enable if you want to allow individual topics watchers management
+
+h3. Wiki pages watchers management
+
+Plugin allows to add/remove watchers to the wiki pages.
+
+Watchers management screen allows to add group members to watchers as well as lookup and quickly select watchers by typing part of their names.
+
+Watchers management is accesible from Wiki's _Index by title_ page. Each page link has watcher's icon and number of active watchers in parenthesis. Click on the number to access watchers management screen.
+
+To enable this feature you should have following permission enabled for role:
+
+* *Manage wiki watchers* (+Wiki+ section of permissions dialog) - enable if you want to allow wiki pages watchers management for given role
+
+h3. Watchers management for new issue dialog
+
+Plugin replaces original list of watchers in new issue creation dialog with a new and more usable. New watchers selection box allows to add group members to watchers as well as lookup and quickly select watchers by typing part of their names.
+
+Please note that starting from version 1.4.0 ability to add non-members as watchers to issue not supported.
+
+h3. Issues context menu for quick watchers management
+
+Plugin incorporates features from my other plugin - "context_menu_watchers":http://www.redmine.org/plugins/redmine_context_menu_watchers
+
+Plugin adds 'Watchers' submenu to issues' context menu allowing to perform various watchers' related operations on selected issues:
+
+* *Watch* - add current user as watcher to selected issues
+* *Unwatch* - remove current user from watchers of selected issues
+* *Add watchers* - select users and add them as watchers to selected issues
+ +Restrictions+: Selected issues should belong to the same project and logged user should have 'Add watchers' permission
+* *Delete watchers* - select users and remove them from the list of watchers for the selected issues
+ +Restrictions+: Selected issues should belong to the same project and logged user should have 'Delete watchers' permission
+
+h3. Patches and changed views
+
+Following views are altered:
+
+* boards/index.html.erb
+* boards/show.html.erb
+* issues/new.html.erb
+* messages/_form.html.erb
+* projects/_form.html.erb
+* projects/settings/_boards.html.erb
+
+Following controllers/models are patched
+
+* boards_controller (show)
+* messages_controller (new,edit)
+* message (sticky_priority attribute)
+
+h3. Installation
+
+* Please install "Plugin views with revisions":http://www.redmine.org/plugins/redmine_plugin_views_revisions in order for this plugin to work
+* Do plugin migrations
+ rake db:migrate_plugins RAILS_ENV=production
+* Run rake task to compile correct views
+ rake redmine:plugins:process_version_change RAILS_ENV=production
+
+If you are going to upgrade Redmine itself after plugin installation please run rake tasks above after upgrade.
+
+h3. History
+
+0.2.5
+
+* Compatibility with 1.4.x added
+
+0.2.4
+
+* Compatibility with 1.3.3 improved
+
+0.2.3
+
+* Compatibility with 1.3.3 added
+
+0.2.2
+
+* Rails 3 (Redmine 2.x) compatibility
+
+0.2.1
+
+* Different Redmine revisions compatibility
+
+0.2.0
+
+* Plugin depends on "Plugin views with revisions":http://www.redmine.org/plugins/redmine_plugin_views_revisions
+* Added ability to manage wiki pages watchers
+* Merged with _context_menu_watchers_ plugin
+* Replaces default watchers selection in new issue dialog
+
+0.1.3
+
+* Added ability to manage message watchers on reply screen
+
+0.1.2
+
+* DE translation added
+* More robust JS code
+
+0.1.1
+
+* Major upgrade
+* Three level of sticky priorities added (low, medium, high)
+* Group selection of watchers toggles users checkboxes
+* Ability to select users using text input
+* Breadcrumbs for quick navigation
+* Added ability to check/uncheck all trackers/custom fields on project settings screen
+
+0.0.7
+
+* Compatibility with Redmine 1.3.x added
+
+0.0.6
+
+* Interface redisigned
+* Removed dependency from Issues module
+* Added ability to select group for watchers based on project members settings
+
+0.0.5
+
+* Initial release

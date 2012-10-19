@@ -1,0 +1,52 @@
+<h2><%= l(:label_board_plural) %></h2>
+
+<table class="list boards">
+  <thead><tr>
+    <th><%= l(:label_board) %></th>
+    <th><%= l(:label_topic_plural) %></th>
+    <th><%= l(:label_message_plural) %></th>
+    <th><%= l(:label_message_last) %></th>
+<%# VVK Lines added by boards watchers plugin - start %>
+    <% if authorize_for("boards_watchers", "manage") %>
+      <th><%= l(:label_issue_watchers) %></th>
+    <% end %>
+<%# VVK Lines added by boards watchers plugin - end %>
+  </tr></thead>
+  <tbody>
+<% for board in @boards %>
+  <tr class="<%= cycle 'odd', 'even' %>">
+    <td>
+      <%= link_to h(board.name), {:action => 'show', :id => board}, :class => "board"  %><br />
+      <%=h board.description %>
+    </td>
+    <td align="center"><%= board.topics_count %></td>
+    <td align="center"><%= board.messages_count %></td>
+    <td>
+    <small>
+      <% if board.last_message %>
+      <%= authoring board.last_message.created_on, board.last_message.author %><br />
+      <%= link_to_message board.last_message %>
+      <% end %>
+    </small>
+    </td>
+<%# VVK Lines added by boards watchers plugin - start %>
+    <% if authorize_for("boards_watchers", "manage") %>
+     <td align="center">
+       <%= link_to "(#{board.watcher_users.size})", {:controller => 'boards_watchers', :action => 'manage', :project_id => @project, :board_id => board }, :class => (board.watcher_users.size>0?'icon icon-fav':'icon icon-fav-off') %>
+     </td>
+    <% end %>
+<%# VVK Lines added by boards watchers plugin - end %>
+  </tr>
+<% end %>
+  </tbody>
+</table>
+
+<% other_formats_links do |f| %>
+  <%= f.link_to 'Atom', :url => {:controller => 'activities', :action => 'index', :id => @project, :show_messages => 1, :key => User.current.rss_key} %>
+<% end %>
+
+<% content_for :header_tags do %>
+  <%= auto_discovery_link_tag(:atom, {:controller => 'activities', :action => 'index', :id => @project, :format => 'atom', :show_messages => 1, :key => User.current.rss_key}) %>
+<% end %>
+
+<% html_title l(:label_board_plural) %>

@@ -1,0 +1,14 @@
+<fieldset class="collapsible collapsed">
+  <legend onclick="toggleFieldset(this);"><%= l(:label_issue_watchers) %></legend>
+  <div style="display: none;">
+    <%= render :partial => 'boards_watchers/watchers_list', :locals => { :watched_obj => @topic, :watched_param_name => 'bw_watcher_ids[]'} %>
+
+    <%= link_to_remote(l(:label_bw_update_message_watchers),
+                     :url => { :controller => 'boards_watchers', :action => 'manage_topic_remote', :board_id => @board.id, :topic_id => @topic.id, :project_id => @project},
+                     :method => 'post',
+                     :update => 'bw-remote-status',
+                     :with => "serializeWatchersForRemote('watcher_user_ids[]','bw')", :html => {:id => 'bw-remote-toggle-link'} ) %>
+    <span id="bw-remote-status"> </span>
+
+  </div>
+</fieldset>
