@@ -1,0 +1,19 @@
+pl:
+  label_bw_toggle_group: "Przełącz zaznaczenie dla grupy:"
+  label_bw_toggle_all: "[Wszyscy]"
+  label_bw_check_selected: "Zaznacz"
+  label_bw_uncheck_selected: "Odznacz"
+  label_bw_update_message_watchers: "Uaktualnij listę obserwatorów"
+  label_bw_msg_watchers_updated: "Lista obserwatorów uaktualniona"
+  label_bw_msg_watchers_updated_error: "Wystąpił błąd przy aktualizacji listy obserwatorów"
+
+# sticky priority variables
+  label_bw_sticky_0: "Zwykły"
+  label_bw_sticky_1: "Przyklejony - niski"
+  label_bw_sticky_2: "Przyklejony - średni"
+  label_bw_sticky_3: "Przyklejony - wysoki"
+
+# boards watchers permission
+  permission_delete_board_watchers: "Zarządzanie obserwatorami forów"
+  permission_delete_message_watchers: "Zarządzanie obserwatorami tematów"
+  permission_delete_wiki_watchers: "Zarządzanie obserwatorami wiki"

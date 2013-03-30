@@ -1,7 +1,5 @@
 function VVK_getWatchersCheckBoxes(watchers_dom_id) {
-  var bw_users=$(watchers_dom_id+'-users');
-
-  return bw_users == null ? null : $(bw_users + "input:checkbox");
+  return bw_users=$('#' + watchers_dom_id + '-users [type=checkbox]');
 }
 
 function toggleWatchersCheckBoxes(ids_to_toggle_str,on_off_str,watchers_dom_id) {
@@ -55,7 +53,7 @@ function toggleSelectedWatchers(on_off_str,watchers_dom_id) {
     var i;
 
     for(i=0;i<user_check_boxes.length;i++) {
-      if(user_check_boxes[i].up().hasClassName('bw-floating-select')) {
+      if($(user_check_boxes[i]).parent().hasClass('bw-floating-select')) {
         user_check_boxes[i].checked=turn_on;
       }
     }
