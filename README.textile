@@ -85,6 +85,14 @@ If you are going to upgrade Redmine itself after plugin installation please run 
 
 h3. History
 
+0.2.7
+
+* Compatibility with 2.3.0 added
+
+0.2.6
+
+* Compatibility with 2.1.0 added
+
 0.2.5
 
 * Compatibility with 1.4.x added

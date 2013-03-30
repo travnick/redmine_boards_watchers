@@ -14,19 +14,21 @@
 
 <div class="tabular">
   <div class="box" id="<%= "#{dom_id}-users" %>">
-    <p>
+    <p id="watchers_form">
       <label><%= l(:label_issue_watchers) %></label>
+      <span id="watchers_inputs">
       <% project.users.sort.each do |user| -%>
-        <label class="bw-floating" full_text="<%= h(user) %>">
+        <label class="bw-floating floating" full_text="<%= h(user) %>">
           <% watched_already = (defined?(watched_obj).nil? ? false : watched_obj.watched_by?(user)) %>
           <% unless watched_already %>
             <% if defined?(watched_users_preset).nil? == false && watched_users_preset.include?(user.id) %>
               <% watched_already = true %>
             <% end %>
           <% end %>
-          <%= check_box_tag watched_param_name, user.id, watched_already %> <%=h user %>
+          <%= check_box_tag watched_param_name, user.id, watched_already, :id => sanitize_to_id(watched_param_name + user.id.to_s) %> <%=h user %>
         </label>
       <% end -%>
+      </span>
     </p>
   </div>
   <p>
@@ -41,7 +43,7 @@
   </p>
 </div>
 
-<% groups = project.member_principals.find(:all, :include => [:roles, :principal]).sort.select { |m| true if m.principal.class.name == 'Group' } %>
+<% groups = project.principals.select { |m| m.is_a?(Group) }.sort %>
 <div class="tabular">
   <div class="box" id="<%= "#{dom_id}-groups" %>">
     <p class="bw-toggle-link">
@@ -49,7 +51,7 @@
       <%= link_to_function(h(l(:label_bw_toggle_all)),"toggleWatchersCheckBoxes('#{[-1].to_json}','-1','#{dom_id}')") %>
       <% if groups && groups.size > 0 %>
         <% groups.each do |group| -%>
-          <%= link_to_function(h(group.principal),"toggleWatchersCheckBoxes('#{group.principal.users.collect(&:id).to_json}','-1','#{dom_id}')") %>
+          <%= link_to_function(h(group.name),"toggleWatchersCheckBoxes('#{group.users.collect(&:id).to_json}','-1','#{dom_id}')") %>
         <% end -%>
       <% end %>
     </p>

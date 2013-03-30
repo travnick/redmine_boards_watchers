@@ -7,7 +7,7 @@
                     'updated_on' => "#{Message.table_name}.updated_on"
 
         @topic_count = @board.topics.count
-        @topic_pages = ActionController::Base::Paginator.new self, @topic_count, per_page_option, params['page']
+        @topic_pages = Paginator.new self, @topic_count, per_page_option, params['page']
       # VVK
         order_sort = ["#{Message.table_name}.sticky_priority DESC", sort_clause].compact.join(', ')
         if Rails::VERSION::MAJOR >= 3
